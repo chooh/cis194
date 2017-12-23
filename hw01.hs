@@ -21,3 +21,11 @@ sumDigits = foldr ((+) . sum . toDigitsRev) 0
 
 validate :: Integer -> Bool
 validate = (==) 0 . (flip mod 10) .  sumDigits . doubleEveryOther . toDigits
+
+{- The Towers of Hanoi -}
+type Peg = String
+type Move = (Peg, Peg)
+
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 1 from to proxy = [(from, to)]
+hanoi n from to proxy = (hanoi (n-1) from proxy to) ++ (hanoi 1 from to proxy) ++ (hanoi (n-1) proxy to from)
